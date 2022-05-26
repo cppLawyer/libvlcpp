@@ -23,6 +23,7 @@
 #ifndef EQUALIZER_HPP
 #define EQUALIZER_HPP
 
+#include "assert.h"
 #include "common.hpp"
 #include "Internal.hpp"
 
@@ -38,15 +39,14 @@ public:
      * The new equalizer can subsequently be applied to a media player by invoking
      * libvlc_media_player_set_equalizer().
      *
-     * \throw std::runtime_error when equalizer creation fails
+     * assert when equalizer creation fails
      *
      * \version LibVLC 2.2.0 or later
      */
     Equalizer()
         : Internal{ libvlc_audio_equalizer_new(), libvlc_audio_equalizer_release }
     {
-        if ( isValid() == false )
-            throw std::runtime_error( "Failed to create audio equalizer" );
+        assert(( "Message: Failed to create audio equalizer", isValid() ));
     }
 
     /**
@@ -58,15 +58,14 @@ public:
      *
      * \param index index of the preset, counting from zero
      *
-     * \throw std::runtime_error when equalizer creation fails
+     * assert when equalizer creation fails
      *
      * \version LibVLC 2.2.0 or later
      */
     Equalizer( unsigned int index )
         : Internal{ libvlc_audio_equalizer_new_from_preset( index ), libvlc_audio_equalizer_release }
     {
-        if ( isValid() == false )
-            throw std::runtime_error( "Failed to create audio equalizer" );
+        assert(( "Message: Failed to create audio equalizer", isValid() ));
     }
 
     /**
